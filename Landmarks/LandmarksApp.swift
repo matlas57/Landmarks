@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+
+/*
+ * @main defines the apps entry point
+ * body returns scenes which provide content fot the display
+ */
 @main
 struct LandmarksApp: App {
     var body: some Scene {
