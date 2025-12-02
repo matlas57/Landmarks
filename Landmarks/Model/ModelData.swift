@@ -1,0 +1,38 @@
+//
+//  ModelData.swift
+//  Landmarks
+//
+//  Created by Matan Atlas on 12/2/25.
+//
+
+import Foundation
+
+var landmarks: [Landmark] = load("landmarkData.json")
+
+/*
+ * load fetches JSON data with a given name, it relies on the return types conformance to the Decondable protocol
+ */
+func load<T: Decodable>(_ filename: String) -> T {
+    let data: Data
+    
+    // guard allows early exit if a condition is not met, the exit is defined in the else block
+    // here we declare a file from the main bundle
+    guard let file = Bundle.main.url(forResource: filename, withExtension: nil) else {
+        fatalError("Couldn't find \(filename) in main bundle.")
+    }
+    
+    // Extract the data of the file into data
+    do {
+        data = try Data(contentsOf: file)
+    } catch {
+        fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
+    }
+    
+    // Parse the JSON content with a JSONDecoder
+    do {
+        let decoder = JSONDecoder()
+        return try decoder.decode(T.self, from: data)
+    } catch {
+        fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
+    }
+}
