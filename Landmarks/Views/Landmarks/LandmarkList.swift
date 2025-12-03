@@ -9,6 +9,10 @@ import SwiftUI
 
 struct LandmarkList: View {
     /*
+     * The Environment wrapper enables reading data into modelData automatically as long as a parent has a environment(_:) modeifer applied
+     */
+    @Environment(ModelData.self) var modelData
+    /*
      * Create a state variable to hold the filter settings of the list
      * State variables should be private since they're specific to a view
      */
@@ -18,7 +22,7 @@ struct LandmarkList: View {
      * Create the list to display that will only show the favorites if the state variable showFavoritesOnly is true
      */
     var filteredLandmarks: [Landmark] {
-        landmarks.filter { landmark in
+        modelData.landmarks.filter { landmark in
             (!showFavoritesOnly || landmark.isFavorite)
         }
     }
@@ -60,4 +64,5 @@ struct LandmarkList: View {
 
 #Preview {
     LandmarkList()
+        .environment(ModelData())
 }

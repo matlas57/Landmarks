@@ -7,7 +7,13 @@
 
 import Foundation
 
-var landmarks: [Landmark] = load("landmarkData.json")
+/*
+ * Using Observable SwiftUI supports data changes without using property wrappers or bindings. SwiftUI watches for property changes that could affect a view and displays the correct version after a change
+ */
+@Observable
+class ModelData {
+    var landmarks: [Landmark] = load("landmarkData.json")
+}
 
 /*
  * load fetches JSON data with a given name, it relies on the return types conformance to the Decondable protocol

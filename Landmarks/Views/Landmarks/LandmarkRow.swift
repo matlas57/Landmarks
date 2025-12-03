@@ -27,8 +27,9 @@ struct LandmarkRow: View {
 }
 
 #Preview {
+    let landmarks = ModelData().landmarks
     // Create a preview LandmarkRow and specify an instance of a landmark for the preview to use
-    Group {
+    return Group {
         LandmarkRow(landmark: landmarks[0])
         LandmarkRow(landmark: landmarks[1])
     }

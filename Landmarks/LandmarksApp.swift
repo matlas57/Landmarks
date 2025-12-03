@@ -14,9 +14,15 @@ import SwiftUI
  */
 @main
 struct LandmarksApp: App {
+    /*
+     * Use state to store modelData so that its created once during an apps lifetime
+     * Pass the modelData to the app whenever the app is run through an environment modifier
+     */
+    @State private var modelData = ModelData()
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(modelData)
         }
     }
 }

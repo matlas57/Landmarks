@@ -20,4 +20,5 @@ struct ContentView: View {
 // A preview of the main ContentView
 #Preview {
     ContentView()
+        .environment(ModelData()) // For @Environment to work in LandmarkList, its parent must have a environment modifier set
 }
