@@ -8,6 +8,21 @@
 import SwiftUI
 
 struct LandmarkList: View {
+    /*
+     * Create a state variable to hold the filter settings of the list
+     * State variables should be private since they're specific to a view
+     */
+    @State private var showFavoritesOnly = false
+
+    /*
+     * Create the list to display that will only show the favorites if the state variable showFavoritesOnly is true
+     */
+    var filteredLandmarks: [Landmark] {
+        landmarks.filter { landmark in
+            (!showFavoritesOnly || landmark.isFavorite)
+        }
+    }
+    
     var body: some View {
         /*
          * NavigationSplitView specifies a main and detail view for navigation
@@ -19,13 +34,23 @@ struct LandmarkList: View {
              * The id property in landmarkData accomplishes this
              * This can also be done by ensuring conformity to the Identifiable protocol
              */
-            List (landmarks) { landmark in
-                NavigationLink {
-                    LandmarkDetail(landmark: landmark)
-                } label: {
-                    LandmarkRow(landmark: landmark)
+            List {
+                // Use $ to access a binding to a state variable
+                Toggle(isOn: $showFavoritesOnly) {
+                    Text("Favorites Only")
+                }
+                /*
+                 * Use ForEach to combine static and dynamic views in a list
+                 */
+                ForEach (filteredLandmarks) { landmark in
+                    NavigationLink {
+                        LandmarkDetail(landmark: landmark)
+                    } label: {
+                        LandmarkRow(landmark: landmark)
+                    }
                 }
             }
+            .animation(.default, value: filteredLandmarks)
             .navigationTitle("Landmarks")
         } detail: {
             Text("Select a Landmark")

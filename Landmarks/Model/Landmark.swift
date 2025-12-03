@@ -19,6 +19,7 @@ struct Landmark: Hashable, Codable, Identifiable {
     var park: String
     var state: String
     var description: String
+    var isFavorite: Bool
     
     // imageName contains the image file name so it can be read from assets
     private var imageName: String
