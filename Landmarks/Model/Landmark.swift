@@ -20,6 +20,15 @@ struct Landmark: Hashable, Codable, Identifiable {
     var state: String
     var description: String
     var isFavorite: Bool
+    var isFeatured: Bool
+    
+    var category: Category
+    // The Category enum will be set automatically because there is a category property in landmarkData and the Codable tag is used
+    enum Category: String, CaseIterable, Codable {
+        case lakes = "Lakes"
+        case mountains = "Mountains"
+        case rivers = "Rivers"
+    }
     
     // imageName contains the image file name so it can be read from assets
     private var imageName: String
