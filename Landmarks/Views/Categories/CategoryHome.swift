@@ -14,11 +14,7 @@ struct CategoryHome: View {
     var body: some View {
         NavigationSplitView {
             List {
-                modelData.features[0].image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 200)
-                    .clipped()
+                PageView(pages: modelData.features.map {FeatureCard(landmark: $0)})
                     .listRowInsets(EdgeInsets()) //extend edges to end of the view
                 
                 // Display a list of sorted categories with a label being the category
